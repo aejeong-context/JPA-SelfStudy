@@ -15,17 +15,12 @@ public class JpaMain {
     tx.begin();
     try {
 
-      //      Member member = em.find(Member.class, 1L);
-      // JPQL 객체를 대상으로한 쿼리이기 때문에 방언에 맞춰서 각 DB에 맞게 변역을 해준다.
-      List<Member> result =
-          em.createQuery("select m from Member m", Member.class)
-              .setFirstResult(8)
-              .setMaxResults(5)
-              .getResultList();
 
-      for (Member member : result) {
-        System.out.println(member);
-      }
+      Member member = new Member(200L,"member200");
+      em.persist(member);
+      // 미리 쿼리를 보고싶을 때, TEST 할 때
+      em.flush();
+      System.out.println("----------------");
 
       tx.commit();
     } catch (Exception e) {
