@@ -14,12 +14,31 @@ public class JpaMain {
     tx.begin();
     try {
 
-      // id 입력하지 않아도 자동으로 생성 -> generatedType.IDENTITY 설정
+      // 저장
+      Team team = new Team();
+      team.setName("TeamA");
+      em.persist(team);
+
       Member member = new Member();
-      member.setUsername("aejeong");
+      member.setUsername("member1");
+      // 외래키 식별자를 직접 다룬다.
+      //      member.setTeamId(team.getId());
+      //      em.persist(member);
+
+      // 연관관계 사용
+      member.setTeam(team);
       em.persist(member);
 
 
+      // 연관관계 사용
+      //      Member findMember = em.find(Member.class, member.getId());
+      //      Long findTeamId = findMember.getTeamId();
+      //      Team findTeam = em.find(Team.class,findTeamId);
+
+      Member findMember = em.find(Member.class, member.getId());
+
+      Team findTeam = findMember.getTeam();
+      System.out.println(findTeam.getName());
 
       tx.commit();
     } catch (Exception e) {
