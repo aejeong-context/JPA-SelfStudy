@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
   public static void main(String[] args) {
@@ -14,31 +15,15 @@ public class JpaMain {
     tx.begin();
     try {
 
-      // 저장
-      Team team = new Team();
-      team.setName("TeamA");
-      em.persist(team);
+      Order order = new Order();
 
-      Member member = new Member();
-      member.setUsername("member1");
-      // 외래키 식별자를 직접 다룬다.
-      //      member.setTeamId(team.getId());
-      //      em.persist(member);
+      // 양반향
+//      order.addOrderItem(new OrderItem());
+      // 단반향
+      OrderItem orderItem = new OrderItem();
+      orderItem.setOrder(order);
 
-      // 연관관계 사용
-      member.setTeam(team);
-      em.persist(member);
-
-
-      // 연관관계 사용
-      //      Member findMember = em.find(Member.class, member.getId());
-      //      Long findTeamId = findMember.getTeamId();
-      //      Team findTeam = em.find(Team.class,findTeamId);
-
-      Member findMember = em.find(Member.class, member.getId());
-
-      Team findTeam = findMember.getTeam();
-      System.out.println(findTeam.getName());
+      em.persist(order);
 
       tx.commit();
     } catch (Exception e) {

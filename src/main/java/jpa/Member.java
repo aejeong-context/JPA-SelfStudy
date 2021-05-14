@@ -1,6 +1,8 @@
 package jpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -9,37 +11,13 @@ public class Member {
   @GeneratedValue
   @Column(name = "MEMBER_ID")
   private Long id;
+  private String name;
+  private String city;
+  private String street;
+  private String zipcods;
 
-  @Column(name = "USERNAME")
-  private String username;
+  @OneToMany(mappedBy = "order")
+  private List<Order> orderList = new ArrayList<>();
 
-  //  @Column(name = "TEAM_ID")
-  //  private Long teamId;
-  @ManyToOne
-  @JoinColumn(name = "TEAM_ID")
-  private Team team;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setTeam(Team team) {
-    this.team = team;
-  }
-
-  public Team getTeam() {
-    return team;
-  }
 }
