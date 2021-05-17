@@ -1,9 +1,8 @@
 package jpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -12,4 +11,6 @@ public class Item {
     @Column(name = "ITEM_ID")
     private Long id;
 
+    @ManyToMany(mappedBy = "itemList")
+    private List<Category> categoryList = new ArrayList<>();
 }

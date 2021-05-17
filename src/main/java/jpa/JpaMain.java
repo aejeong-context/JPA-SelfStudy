@@ -15,17 +15,7 @@ public class JpaMain {
     tx.begin();
     try {
 
-      Order order = new Order();
 
-      // 양반향
-//      order.addOrderItem(new OrderItem());
-      // 단반향
-      OrderItem orderItem = new OrderItem();
-      orderItem.setOrder(order);
-
-      em.persist(order);
-
-      tx.commit();
     } catch (Exception e) {
       tx.rollback();
     } finally {

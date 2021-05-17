@@ -16,8 +16,8 @@ public class Member {
   private String street;
   private String zipcods;
 
-  @OneToMany(mappedBy = "order")
-  private List<Order> orderList = new ArrayList<>();
+//  @OneToMany(mappedBy = "order")
+//  private List<Order> orderList = new ArrayList<>();
 
 
 }
