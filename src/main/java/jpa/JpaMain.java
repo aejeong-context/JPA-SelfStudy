@@ -13,23 +13,30 @@ public class JpaMain {
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     try {
-      Member member = new Member();
-      member.setName("aejeong");
-      em.persist(member);
+      Member member1 = new Member();
+      member1.setName("aejeong");
+      em.persist(member1);
+
+      Member member2 = new Member();
+      member2.setName("jisu");
+      em.persist(member2);
 
       em.flush();
       em.clear();
 
-      // 호출한 순간 쿼리 실행
-      Member findMember = em.find(Member.class, member.getId());
-      // 호출했을 때 실행 안함
-      Member findMember2 = em.getReference(Member.class, member.getId());
-      // 이때 쿼리 실행 함
-      System.out.println("findMember = " + findMember.getName());
+      Member m1 = em.find(Member.class, member1.getId());
+      Member m2 = em.find(Member.class, member2.getId());
 
+      Member reference1 = em.getReference(Member.class, member1.getId());
+      Member reference2 = em.getReference(Member.class, member2.getId());
+      System.out.println("m2 == m2 : "+(m1.getClass() == m2.getClass()));
+      System.out.println("m2 == m2 : "+(reference1.getClass() == m1.getClass()));
+      System.out.println("reference1 == reference2 : " +(m1.getClass() == reference2.getClass()));
+      System.out.println("reference1 == reference2 : " +(m1 instanceof Member));
+      System.out.println("reference1 == reference2 : " +(m2 instanceof Member));
 
-//      printMemberAndTeam(member1);
-//      printMember(member);
+      //      printMemberAndTeam(member1);
+      //      printMember(member);
 
       tx.commit();
     } catch (Exception e) {
@@ -40,15 +47,15 @@ public class JpaMain {
     emf.close();
   }
 
-//  private static void printMember(Member member) {
-//    System.out.println("member = " + member.getName());
-//  }
-//
-//  private static void printMemberAndTeam(Member member) {
-//    String userName = member.getName();
-//    System.out.println(userName);
-//
-//    Team team = member.getTeam();
-//    System.out.println("team = " + team.getName());
-//  }
+  //  private static void printMember(Member member) {
+  //    System.out.println("member = " + member.getName());
+  //  }
+  //
+  //  private static void printMemberAndTeam(Member member) {
+  //    String userName = member.getName();
+  //    System.out.println(userName);
+  //
+  //    Team team = member.getTeam();
+  //    System.out.println("team = " + team.getName());
+  //  }
 }
